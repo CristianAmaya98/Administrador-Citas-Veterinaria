@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { PacienteService } from '../../services/paciente.service';
 import { Paciente } from '../../interfaces/Paciente.interface';
 
@@ -10,10 +10,20 @@ import { Paciente } from '../../interfaces/Paciente.interface';
 })
 export class ListadoPacientesComponent {
 
+  @Output() onEditarPaciente: EventEmitter<Paciente> = new EventEmitter<Paciente>();
+
   get pacientes(): Paciente[] {
     return this.pacienteService.getFindAllPaciente()
   }
 
   constructor(private pacienteService: PacienteService) { }
 
+
+  editarPaciente(paciente: Paciente) {
+    this.onEditarPaciente.emit(paciente);
+  }
+
+  eliminarPaciente(paciente: Paciente) {
+    this.pacienteService.deletePaciente(paciente)
+  }
 }

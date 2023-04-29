@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Paciente } from './paciente/interfaces/Paciente.interface';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: []
 })
 export class AppComponent {
-  title = 'Administrador-Citas-Veterinaria';
+  paciente!: Paciente
+
+
+  editarPaciente(paciente: Paciente) {
+    this.paciente = paciente;
+  }
 }

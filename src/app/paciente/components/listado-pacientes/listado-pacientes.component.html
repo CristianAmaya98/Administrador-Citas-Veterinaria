@@ -2,4 +2,4 @@
 <p class="text-xl mt-5 mb-10 text-center">Administra tus <span class="text-indigo-600 font-bold">Pacientes y
     Citas</span></p>
 
-<app-paciente *ngFor="let paciente of pacientes" [paciente]="paciente"></app-paciente>
+<app-paciente *ngFor="let paciente of pacientes" [paciente]="paciente" (onEditarPaciente)="editarPaciente($event)" (onEliminarPaciente)="eliminarPaciente($event)"></app-paciente>

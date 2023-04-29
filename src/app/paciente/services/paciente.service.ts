@@ -22,4 +22,14 @@ export class PacienteService {
   getFindAllPaciente() {
     return JSON.parse(localStorage.getItem(this.keyStore)!) ?? []
   }
+
+  updatePaciente(updatePaciente: Paciente) {
+    this.pacientes = this.pacientes.map(paciente => (paciente.id === updatePaciente.id) ? updatePaciente : paciente);
+    localStorage.setItem(this.keyStore, JSON.stringify(this.pacientes));
+  }
+
+  deletePaciente(deletePaciente: Paciente) {
+    this.pacientes = this.pacientes.filter(paciente => paciente.id !== deletePaciente.id);
+    localStorage.setItem(this.keyStore, JSON.stringify(this.pacientes));
+  }
 }

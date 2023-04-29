@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Paciente } from '../../interfaces/Paciente.interface';
 import { PacienteService } from '../../services/paciente.service';
@@ -10,7 +10,9 @@ import { validatorCorreNoValido } from '../../helpers/validaciones';
   styles: [
   ]
 })
-export class FormularioComponent {
+export class FormularioComponent implements OnChanges {
+
+  @Input() paciente!: Paciente;
 
   formularioPaciente: FormGroup = this.formBuilder.group({
     mascota: ['', [Validators.required]],
@@ -25,9 +27,23 @@ export class FormularioComponent {
     message: ''
   }
 
+  onEditar: boolean = false;
+
   constructor(private formBuilder: FormBuilder, private pacienteService: PacienteService) {
     this.verificarErrores()
   }
+  ngOnChanges(): void {
+    if (!this.paciente) return;
+
+    const { email, fecha, mascota, propietario, sintomas } = this.paciente;
+    this.formularioPaciente.get('mascota')?.setValue(mascota)
+    this.formularioPaciente.get('propietario')?.setValue(propietario)
+    this.formularioPaciente.get('email')?.setValue(email)
+    this.formularioPaciente.get('fecha')?.setValue(fecha)
+    this.formularioPaciente.get('sintomas')?.setValue(sintomas)
+    this.onEditar = true;
+  }
+
 
 
   generarIdPaciente() {
@@ -51,6 +67,25 @@ export class FormularioComponent {
     this.formularioPaciente.reset();
   }
 
+
+  editarPaciente() {
+    const objPacienteUpdate: Paciente = {
+      ...this.formularioPaciente.value,
+      id: this.paciente.id
+    }
+
+    this.pacienteService.updatePaciente(objPacienteUpdate);
+    this.formularioPaciente.reset();
+    this.paciente = {
+      email: '',
+      fecha: '',
+      mascota: '',
+      id: '',
+      propietario: '',
+      sintomas: ''
+    }
+    this.onEditar = false;
+  }
 
   verificarErrores() {
     const validateCampos = ["mascota",

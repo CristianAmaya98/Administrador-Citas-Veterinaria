@@ -8,13 +8,11 @@ export const validatorCorreNoValido = (control: FormControl) => {
     return { correoInvalid: true };
   }
 
-  if (!control.value.includes('@') && !control.value.includes('.')) {
+  if (!control.value?.includes('@') && !control.value?.includes('.')) {
     return { correoInvalid: true };
   }
 
   const dataCorreo = control.value.split('@')[1].split('.')[0];
-
-  console.log(correosInvalidos.includes(dataCorreo) ? { correoInvalid: true } : null);
 
   return correosInvalidos.includes(dataCorreo) ? { correoInvalid: true } : null;
 }

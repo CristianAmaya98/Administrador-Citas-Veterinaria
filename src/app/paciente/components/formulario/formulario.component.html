@@ -5,7 +5,7 @@
   <span class="text-indigo-600 font-bold"> Administralos</span>
 </p>
 
-<form [formGroup]="formularioPaciente" (ngSubmit)="savePaciente()" autocomplete="off"
+<form [formGroup]="formularioPaciente" (ngSubmit)="(onEditar)? editarPaciente():savePaciente()" autocomplete="off"
   class="bg-white shadow-md rounded-lg py-10 px-5 mb-10">
 
   <app-error *ngIf="objError.error" [message]="objError.message"></app-error>
@@ -42,5 +42,5 @@
 
   <input type="submit"
     class="bg-indigo-600 w-full p-3 text-white uppercase font-bold hover:bg-indigo-700 cursor-pointer transition-colors disabled:bg-slate-400"
-    [disabled]="formularioPaciente.invalid" value="Agregar Paciente">
+    [disabled]="formularioPaciente.invalid" value="{{(onEditar)?'Editar Paciente': 'Agregar Paciente'}}">
 </form>
