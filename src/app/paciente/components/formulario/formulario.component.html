@@ -1,0 +1,46 @@
+<h2 class="font-black text-3xl text-center">Seguimiento Pacientes</h2>
+
+<p class="text-lg mt-5 text-center mb-10">
+  Añade Pacientes y
+  <span class="text-indigo-600 font-bold"> Administralos</span>
+</p>
+
+<form [formGroup]="formularioPaciente" (ngSubmit)="savePaciente()" autocomplete="off"
+  class="bg-white shadow-md rounded-lg py-10 px-5 mb-10">
+
+  <app-error *ngIf="objError.error" [message]="objError.message"></app-error>
+
+  <div class="mb-5">
+    <label for="mascota">Nombre Mascota:</label>
+    <input type="text" id="mascota" class="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+      formControlName="mascota" placeholder="Nombre de la Mascota" (blur)="verificarErrores()">
+  </div>
+
+  <div class="mb-5">
+    <label for="propietario">Nombre Propietario:</label>
+    <input type="text" id="propietario" class="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+      formControlName="propietario" placeholder="Nombre del Propietario" (blur)="verificarErrores()">
+  </div>
+
+  <div class="mb-5">
+    <label for="email">Email:</label>
+    <input type="text" id="email" class="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+      formControlName="email" placeholder="Email Contacto Propietario" (blur)="verificarErrores()">
+  </div>
+
+  <div class="mb-5">
+    <label for="alta">Alta:</label>
+    <input type="date" id="alta" class="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+      formControlName="fecha" (blur)="verificarErrores()">
+  </div>
+
+  <div class="mb-5">
+    <label for="sintomas">Sintomas:</label>
+    <textarea type="date" id="sintomas" class="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+      placeholder="Describe los Sintomas" formControlName="sintomas" (blur)="verificarErrores()"></textarea>
+  </div>
+
+  <input type="submit"
+    class="bg-indigo-600 w-full p-3 text-white uppercase font-bold hover:bg-indigo-700 cursor-pointer transition-colors disabled:bg-slate-400"
+    [disabled]="formularioPaciente.invalid" value="Agregar Paciente">
+</form>
